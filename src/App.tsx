@@ -5,6 +5,7 @@ import { lightTheme, darkTheme } from './styles/theme';
 import { useStore } from './store/useStore';
 
 // Components
+import { OnboardingView } from './views/OnboardingView';
 import { AuthView } from './views/AuthView';
 import { Header } from './components/Header';
 import { Dashboard } from './views/Dashboard';
@@ -25,7 +26,9 @@ function App() {
     toggleTheme,
     setActiveTab,
     setSelectedActivityId,
-    addProgress
+    addProgress,
+    hasSeenOnboarding,
+    completeOnboarding
   } = useStore();
 
   useEffect(() => {
@@ -53,7 +56,11 @@ function App() {
       <GlobalStyles />
       <div className="app-container">
         {!isAuthenticated ? (
-          <AuthView onLogin={login} isDark={isDark} toggleTheme={toggleTheme} />
+          hasSeenOnboarding ? (
+            <AuthView onLogin={login} isDark={isDark} toggleTheme={toggleTheme} />
+          ) : (
+            <OnboardingView onComplete={completeOnboarding} isDark={isDark} toggleTheme={toggleTheme} />
+          )
         ) : (
           <>
             <Header isDark={isDark} toggleTheme={toggleTheme} />

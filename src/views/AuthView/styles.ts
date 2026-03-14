@@ -4,7 +4,7 @@ export const AuthContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 100dvh; /* Account for mobile browser UI */
   padding: 1rem;
   background: ${({ theme }) => theme.colors.background};
 `;
@@ -18,6 +18,12 @@ export const AuthCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto; /* Ensures it centers vertically without overflowing top edge */
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -39,6 +45,12 @@ export const LogoContainer = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  @media (max-width: 480px) {
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+    h1 { font-size: 1.5rem; }
+  }
 `;
 
 export const Form = styled.form`
@@ -46,6 +58,10 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+
+  @media (max-width: 480px) {
+    gap: 0.875rem;
+  }
 `;
 
 export const InputGroup = styled.div`

@@ -13,6 +13,7 @@ interface StoreState {
   activities: Activity[];
   history: Record<string, ActivityHistory[]>;
   userProfile: UserProfile;
+  hasSeenOnboarding: boolean;
 
   // Actions
   login: () => void;
@@ -21,6 +22,7 @@ interface StoreState {
   setSelectedActivityId: (id: string | null) => void;
   addActivity: (activity: Omit<Activity, 'id' | 'current' | 'streak'>) => void;
   addProgress: (activityId: string, amount: number, description: string) => void;
+  completeOnboarding: () => void;
 }
 
 const initialActivities: Activity[] = predefinedActivities.map((activity, index) => ({
@@ -42,9 +44,12 @@ export const useStore = create<StoreState>((set) => ({
     xp: 0,
     coins: 0,
   },
+  hasSeenOnboarding: false,
 
   login: () => set({ isAuthenticated: true }),
   
+  completeOnboarding: () => set({ hasSeenOnboarding: true }),
+
   toggleTheme: () => set((state) => ({ isDark: !state.isDark })),
   
   setActiveTab: (activeTab) => set({ activeTab }),
