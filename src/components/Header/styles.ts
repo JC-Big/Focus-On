@@ -1,24 +1,40 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   padding: 1rem 2rem;
   background: ${({ theme }) => theme.colors.primaryGradient};
   color: white;
   box-shadow: ${({ theme }) => theme.shadows.md};
+  position: relative; /* For absolutely centering the center section on mobile if needed */
+  
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const CenterSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 768px) {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    align-items: center;
   }
 `;
 
@@ -50,6 +66,7 @@ export const DateText = styled.div`
 export const RightSection = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1.25rem;
 
   @media (max-width: 768px) {
@@ -87,6 +104,11 @@ export const IconButton = styled.button`
   border: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   transition: all 0.2s;
+
+  svg {
+    stroke: currentColor;
+    color: currentColor;
+  }
 
   &:hover {
     background: ${({ theme }) => theme.colors.surfaceHover};
@@ -145,9 +167,43 @@ export const UserProfile = styled.div`
   cursor: pointer;
 `;
 
-export const Avatar = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
+export const LevelAvatarWrapper = styled.div`
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SvgCircle = styled.svg`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* Start from top */
+  pointer-events: none;
+
+  circle {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  .bg {
+    stroke: rgba(255, 255, 255, 0.2);
+  }
+
+  .fg {
+    stroke: #fbbf24; /* Golden yellow progress */
+    transition: stroke-dashoffset 0.5s ease;
+  }
+`;
+
+export const AvatarCircle = styled.div`
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   background: white;
   color: ${({ theme }) => theme.colors.primary};
@@ -155,7 +211,29 @@ export const Avatar = styled.div`
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  z-index: 1;
+`;
+
+export const LevelBadge = styled.div`
+  position: absolute;
+  top: -6px;
+  background: #fbbf24;
+  color: #fff;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.1rem 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+
+  svg {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+  }
 `;
 
 export const UserName = styled.span`

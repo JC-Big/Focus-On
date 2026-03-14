@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Rocket, Sun, Moon } from 'lucide-react';
+import { Rocket } from 'lucide-react';
 import {
   AuthContainer,
   AuthCard,
@@ -14,6 +14,9 @@ import {
   FooterText,
   ThemeToggle
 } from './styles';
+
+import moonIcon from '../../assets/moon-yellow.png';
+import sunIcon from '../../assets/sun-yellow.png';
 
 interface AuthViewProps {
   onLogin: () => void;
@@ -32,13 +35,13 @@ export const AuthView = ({ onLogin, isDark, toggleTheme }: AuthViewProps) => {
   return (
     <AuthContainer>
       <ThemeToggle onClick={toggleTheme}>
-        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        {isDark ? <img src={sunIcon} alt="Theme Toggle" style={{ width: 24, height: 24 }} /> : <img src={moonIcon} alt="Theme Toggle" style={{ width: 24, height: 24 }} />}
       </ThemeToggle>
 
       <AuthCard className="glass">
         <LogoContainer>
           <Rocket size={32} />
-          <h1>Focus On</h1>
+          <h1>Tasks Raids</h1>
         </LogoContainer>
 
         <Form onSubmit={handleSubmit}>

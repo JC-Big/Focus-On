@@ -4,6 +4,7 @@ import { XPEngine } from '../engines/XPEngine';
 import { LevelEngine } from '../engines/LevelEngine';
 import { RewardEngine } from '../engines/RewardEngine';
 import { predefinedActivities } from '../constants/predefinedActivities';
+import defaultAvatar from '../assets/profile-placeholder.png';
 
 interface StoreState {
   isAuthenticated: boolean;
@@ -14,6 +15,7 @@ interface StoreState {
   history: Record<string, ActivityHistory[]>;
   userProfile: UserProfile;
   hasSeenOnboarding: boolean;
+  isProfileOpen: boolean;
 
   // Actions
   login: () => void;
@@ -23,6 +25,8 @@ interface StoreState {
   addActivity: (activity: Omit<Activity, 'id' | 'current' | 'streak'>) => void;
   addProgress: (activityId: string, amount: number, description: string) => void;
   completeOnboarding: () => void;
+  setProfileOpen: (isOpen: boolean) => void;
+  updateProfile: (updates: Partial<UserProfile>) => void;
 }
 
 const initialActivities: Activity[] = predefinedActivities.map((activity, index) => ({
@@ -40,11 +44,16 @@ export const useStore = create<StoreState>((set) => ({
   activities: initialActivities,
   history: {},
   userProfile: {
+    name: "Joana Silva",
+    avatarUrl: defaultAvatar,
+    plan: "Free",
     level: 1,
     xp: 0,
     coins: 0,
+    achievements: [],
   },
   hasSeenOnboarding: false,
+  isProfileOpen: false,
 
   login: () => set({ isAuthenticated: true }),
   
@@ -55,6 +64,12 @@ export const useStore = create<StoreState>((set) => ({
   setActiveTab: (activeTab) => set({ activeTab }),
   
   setSelectedActivityId: (selectedActivityId) => set({ selectedActivityId }),
+  
+  setProfileOpen: (isProfileOpen) => set({ isProfileOpen }),
+
+  updateProfile: (updates) => set((state) => ({
+    userProfile: { ...state.userProfile, ...updates }
+  })),
   
   addActivity: (activityData) => set((state) => ({
     activities: [
@@ -117,6 +132,7 @@ export const useStore = create<StoreState>((set) => ({
       activities: newActivities,
       history: newHistory,
       userProfile: {
+        ...state.userProfile,
         level: newLevel,
         xp: newXP,
         coins: newCoins

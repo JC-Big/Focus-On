@@ -19,9 +19,13 @@ export interface Activity {
 }
 
 export interface UserProfile {
+  name: string;
+  avatarUrl: string;
+  plan: string;
   level: number;
   xp: number;
   coins: number;
+  achievements: string[];
 }
 
 export interface AppState {

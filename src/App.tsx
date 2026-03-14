@@ -13,6 +13,7 @@ import { ActivityDetailView } from './views/ActivityDetailView';
 import { SocialView } from './views/SocialView';
 import { RewardsView } from './views/RewardsView';
 import { DiaryView } from './views/DiaryView';
+import { ProfileView } from './views/ProfileView';
 
 function App() {
   const {
@@ -28,7 +29,8 @@ function App() {
     setSelectedActivityId,
     addProgress,
     hasSeenOnboarding,
-    completeOnboarding
+    completeOnboarding,
+    isProfileOpen
   } = useStore();
 
   useEffect(() => {
@@ -65,7 +67,9 @@ function App() {
           <>
             <Header isDark={isDark} toggleTheme={toggleTheme} />
             
-            {selectedActivity ? (
+            {isProfileOpen ? (
+              <ProfileView />
+            ) : selectedActivity ? (
               <ActivityDetailView
                 activity={selectedActivity}
                 history={selectedHistory}
