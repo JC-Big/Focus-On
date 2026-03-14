@@ -85,6 +85,8 @@ export const SlideContainer = styled.div`
   max-height: 600px;
   justify-content: space-between;
   margin: auto; /* Vertically center dynamically */
+  position: relative;
+  overflow: hidden;
 
   @media (max-width: 480px) {
     padding: 1rem;
@@ -176,9 +178,9 @@ export const Dot = styled.div<{ $active: boolean }>`
   transition: all 0.3s ease;
 `;
 
-export const ControlsContainer = styled.div`
+export const ControlsContainer = styled.div<{ $isLast?: boolean }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ $isLast }) => ($isLast ? 'flex-end' : 'space-between')};
   align-items: center;
   width: 100%;
 `;
