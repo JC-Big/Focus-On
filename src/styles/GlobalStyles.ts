@@ -51,9 +51,10 @@ export const GlobalStyles = createGlobalStyle`
   /* Glassmorphism helpers */
   .glass {
     background: ${({ theme }) => theme.colors.surface};
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid ${({ theme }) => theme.colors.border};
+    border-radius: 1rem;
   }
 
   .app-container {
@@ -63,5 +64,30 @@ export const GlobalStyles = createGlobalStyle`
     flex-direction: column;
     position: relative;
     background: ${({ theme }) => theme.colors.background};
+  }
+
+  /* Smooth scrollbar for webkit */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${({ theme }) => theme.colors.textSecondary};
+  }
+
+  /* Selection color */
+  ::selection {
+    background: ${({ theme }) => theme.colors.primary};
+    color: white;
   }
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CardContainer = styled.div<{ $color: string }>`
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 1.5rem; // rounded-3xl
+  border-radius: 1.25rem;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(16px);
@@ -14,7 +14,7 @@ export const CardContainer = styled.div<{ $color: string }>`
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.sm};
 
-  // Subtle gradient glow behind the card
+  /* Subtle gradient glow behind the card */
   &::before {
     content: '';
     position: absolute;
@@ -23,7 +23,7 @@ export const CardContainer = styled.div<{ $color: string }>`
     width: 150%;
     height: 150%;
     background: ${({ $color }) => $color};
-    opacity: 0.05;
+    opacity: 0.04;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     filter: blur(60px);
@@ -33,13 +33,17 @@ export const CardContainer = styled.div<{ $color: string }>`
   }
 
   &:hover {
-    transform: translateY(-4px) scale(1.01);
+    transform: translateY(-6px) scale(1.015);
     box-shadow: ${({ theme }) => theme.shadows.lg};
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.12);
     
     &::before {
       opacity: 0.12;
     }
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(1.005);
   }
 
   > * {
@@ -52,23 +56,28 @@ export const BannerImage = styled.img`
   width: 100%;
   height: 140px;
   object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  ${CardContainer}:hover & {
+    transform: scale(1.05);
+  }
 `;
 
 export const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 1.5rem 1.75rem 0 1.75rem;
+  padding: 1.25rem 1.5rem 0 1.5rem;
 
   @media (max-width: 768px) {
-    padding: 1.25rem 1.25rem 0 1.25rem;
+    padding: 1rem 1.25rem 0 1.25rem;
   }
 `;
 
 export const IconContainer = styled.div<{ $color: string }>`
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 1rem; // rounded-2xl
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,15 +95,14 @@ export const IconContainer = styled.div<{ $color: string }>`
     z-index: -1;
   }
   
-  // Icon specific subtle shadow
-  box-shadow: 0 4px 20px -2px ${({ $color }) => $color}40;
+  box-shadow: 0 4px 16px -2px ${({ $color }) => $color}40;
 `;
 
 export const StreakBadge = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.35rem 0.75rem;
+  gap: 0.3rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -110,15 +118,15 @@ export const StreakBadge = styled.div`
 `;
 
 export const ActivityTitle = styled.h3`
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
-  margin: 1.5rem 1.75rem 0 1.75rem;
+  margin: 1.25rem 1.5rem 0 1.5rem;
   letter-spacing: -0.01em;
 
   @media (max-width: 768px) {
-    font-size: 1.125rem;
-    margin: 1.25rem 1.25rem 0 1.25rem;
+    font-size: 1.05rem;
+    margin: 1rem 1.25rem 0 1.25rem;
   }
 `;
 
@@ -126,13 +134,13 @@ export const ProgressInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text};
-  margin: 1.25rem 1.75rem 0.75rem 1.75rem;
+  margin: 1rem 1.5rem 0.5rem 1.5rem;
 
   @media (max-width: 768px) {
-    margin: 1rem 1.25rem 0.5rem 1.25rem;
+    margin: 0.875rem 1.25rem 0.375rem 1.25rem;
   }
 
   span:last-child {
@@ -142,9 +150,9 @@ export const ProgressInfo = styled.div`
 `;
 
 export const ProgressBarContainer = styled.div`
-  margin: 0 1.75rem;
-  width: calc(100% - 3.5rem);
-  height: 0.35rem;     // thinner
+  margin: 0 1.5rem;
+  width: calc(100% - 3rem);
+  height: 0.3rem;
   border-radius: 9999px;
   background: ${({ theme }) => theme.colors.border};
   overflow: hidden;
@@ -167,12 +175,12 @@ export const CardFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   font-weight: 500;
-  padding: 1.5rem 1.75rem 1.75rem 1.75rem;
+  padding: 1.25rem 1.5rem 1.5rem 1.5rem;
 
   @media (max-width: 768px) {
-    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    padding: 1rem 1.25rem 1.25rem 1.25rem;
   }
 `;

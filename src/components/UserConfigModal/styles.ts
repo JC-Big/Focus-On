@@ -6,29 +6,43 @@ export const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   padding: 1rem;
+  animation: fadeIn 0.2s ease;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `;
 
 export const ModalContainer = styled.div`
   background: ${({ theme }) => theme.colors.background};
-  border-radius: 16px;
+  border-radius: 1.25rem;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: ${({ theme }) => theme.shadows.lg};
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 `;
 
 export const ModalHeader = styled.div`
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 1.75rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,13 +50,15 @@ export const ModalHeader = styled.div`
 
 export const ModalTitle = styled.h2`
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
+  letter-spacing: -0.01em;
 `;
 
 export const CloseButton = styled.button`
-  background: none;
-  border: none;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.textSecondary};
   cursor: pointer;
   padding: 0.5rem;
@@ -51,18 +67,21 @@ export const CloseButton = styled.button`
   justify-content: center;
   border-radius: 50%;
   transition: all 0.2s;
+  width: 2.25rem;
+  height: 2.25rem;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: ${({ theme }) => theme.colors.surfaceHover};
     color: ${({ theme }) => theme.colors.text};
+    transform: rotate(90deg);
   }
 `;
 
 export const ModalBody = styled.div`
-  padding: 1.5rem;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 `;
 
 export const FormGroup = styled.div`
@@ -72,23 +91,27 @@ export const FormGroup = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text};
-  font-weight: 500;
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;
 
 export const Input = styled.input`
   padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
-  font-size: 1rem;
+  font-size: 0.95rem;
   width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
 
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}20;
   }
 `;
 
@@ -98,7 +121,8 @@ export const CheckboxGroup = styled.label`
   gap: 1rem;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.text};
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
 `;
 
 export const Checkbox = styled.input`
@@ -106,7 +130,7 @@ export const Checkbox = styled.input`
   -webkit-appearance: none;
   width: 48px;
   height: 24px;
-  background-color: rgba(150, 150, 150, 0.3);
+  background-color: ${({ theme }) => theme.colors.border};
   border-radius: 24px;
   position: relative;
   cursor: pointer;
@@ -137,36 +161,45 @@ export const Checkbox = styled.input`
 `;
 
 export const ModalFooter = styled.div`
-  padding: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.75rem;
 `;
 
 export const Button = styled.button<{ $variant?: 'primary' | 'secondary' }>`
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.75rem;
   font-weight: 600;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   
   ${({ $variant, theme }) => 
     $variant === 'primary' 
       ? `
-        background: ${theme.colors.primary};
+        background: ${theme.colors.primaryGradient};
         color: white;
         border: none;
-        &:hover { opacity: 0.9; }
+        box-shadow: ${theme.shadows.sm};
+        &:hover { 
+          opacity: 0.9; 
+          transform: translateY(-1px);
+          box-shadow: ${theme.shadows.md};
+        }
       `
       : `
         background: transparent;
-        color: ${theme.colors.text};
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        &:hover { background: rgba(255, 255, 255, 0.1); }
+        color: ${theme.colors.textSecondary};
+        border: 1px solid ${theme.colors.border};
+        &:hover { 
+          background: ${theme.colors.surfaceHover};
+          color: ${theme.colors.text}; 
+        }
       `
   }
 `;

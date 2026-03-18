@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const DashboardContainer = styled.main`
-  padding: 2rem;
+  padding: 2rem 2.5rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
   }
 `;
 
@@ -15,11 +15,11 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   
   @media (max-width: 768px) {
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 `;
 
@@ -27,9 +27,10 @@ export const SectionHeader = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
+  letter-spacing: -0.02em;
   
   @media (max-width: 768px) {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     text-align: center;
   }
 `;
@@ -38,13 +39,17 @@ export const ViewAllLink = styled.button`
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
 
   &:hover {
-    opacity: 0.8;
+    background: ${({ theme }) => theme.colors.surfaceHover};
+    transform: translateY(-1px);
   }
 
   @media (max-width: 768px) {
@@ -65,36 +70,36 @@ export const ArrowButton = styled.button<{ $direction: 'left' | 'right' }>`
   transform: translateY(-50%);
   ${({ $direction }) => ($direction === 'left' ? 'left: 0.5rem;' : 'right: 0.5rem;')}
   z-index: 10;
-  background: rgba(0, 0, 0, 0.4); // Semi-transparent dark background
-  border-radius: 50%; // Circular
-  width: 48px;
-  height: 48px;
+  background: ${({ theme }) => theme.colors.surface};
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: all 0.3s ease;
-  border: none;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid ${({ theme }) => theme.colors.border};
 
   &:hover {
-    transform: translateY(-50%) scale(1.05);
-    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
+    background: ${({ theme }) => theme.colors.surfaceHover};
   }
 
   svg {
-    /* Set stroke to white to match reference image */
-    stroke: #ffffff; 
-    stroke-width: 2.5; /* Thicker chevron stroke */
-    width: 24px;
-    height: 24px;
+    stroke: ${({ theme }) => theme.colors.text};
+    stroke-width: 2.5;
+    width: 20px;
+    height: 20px;
     ${({ $direction }) => ($direction === 'left' ? 'margin-right: 2px;' : 'margin-left: 2px;')}
   }
 
   @media (max-width: 768px) {
-    display: none; // Hidden on mobile
+    display: none;
   }
 `;
 
@@ -103,19 +108,19 @@ export const CarouselContainer = styled.div`
   gap: 1.5rem;
   padding-bottom: 1rem; 
   width: 100%;
-  overflow: hidden; // Prevent native scrolling, handle it logically via React State
+  overflow: hidden;
 `;
 
 export const CardWrapper = styled.div`
-  flex: 1; /* Stretch 3 cards evenly */
-  min-width: 0; /* Allows shrinking in flex */
+  flex: 1;
+  min-width: 0;
   
   @media (max-width: 1024px) {
-    flex: 0 0 calc(50% - 0.75rem); /* 2 cards visible */
+    flex: 0 0 calc(50% - 0.75rem);
   }
 
   @media (max-width: 640px) {
-    flex: 0 0 100%; /* 1 card on mobile */
+    flex: 0 0 100%;
   }
 `;
 
